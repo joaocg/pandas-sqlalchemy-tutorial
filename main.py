@@ -5,16 +5,14 @@ from sqlalchemy.types import Integer, Text, String, DateTime
 import pandas as pd
 
 
-db_URI = environ.get('SQLALCHEMY_DATABASE_URI')
+db_URI = engine = 'mysql+pymysql://usuariosfiec:Pll%V!o4J.L3@localhost/cienciadedados'
 db_schema = environ.get('SQLALCHEMY_DB_SCHEMA')
-engine = create_engine(db_URI,
-                       connect_args={'sslmode': 'require'},
-                       echo=True)
+engine = create_engine(db_URI)
 
 
 def prepare_data():
     """Create DataFrame and clean column names."""
-    jobs_DF = pd.read_csv('data/nyc-jobs.csv')
+    jobs_DF = pd.read_csv('data/teste.csv')
     new_columns = [column.replace(' ', '_').lower() for column in jobs_DF]
     jobs_DF.columns = new_columns
     return jobs_DF
